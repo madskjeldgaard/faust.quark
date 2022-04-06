@@ -10,6 +10,8 @@ This package requires **faust version 2.40.0 or higher** to work.
 
 If you've never made a SuperCollider package before, read [this guide](https://doc.sccode.org/Guides/UsingQuarks.html) and/or try generating one using [this cookiecutter recipe](https://github.com/madskjeldgaard/cookiecutter-quark).
 
+If you want to see a finished package that uses this method, see [this example Quark](https://github.com/madskjeldgaard/faustquark-example).
+
 ### Step 0: Add faust files to your project
 
 This package assumes that you have `.dsp` faust files in your project in a folder at the root of your project called `faust` (if you want to change this, see the help files). Every `.dsp` file in this folder will be part of your installation.
