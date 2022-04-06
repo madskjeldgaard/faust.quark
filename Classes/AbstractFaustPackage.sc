@@ -4,18 +4,13 @@ A superclass for Quarks that distribute faust files. Use this to make your faust
 
 */
 
-AbstractFaustPackage : Singleton {
+AbstractFaustPackage {
     // This assumes you have a folder called "faust" at the root of your quark
     classvar <faustFilesFolder = "faust";
     classvar package;
-    classvar autocompileAdded=false;
 
     *thisPackage{
-
-        if(package.isNil, {
-            package = Quarks.findClassPackage(this)
-        });
-
+        package = Quarks.findClassPackage(this)
         ^package
     }
 
@@ -68,17 +63,19 @@ AbstractFaustPackage : Singleton {
 
     // Automatically compile and install if not already installed and not the superclass
     *autoCompileAtStartup{
-        autocompileAdded.not.if{
+        // autocompileAdded.not.if{
             StartUp.add({
                 if(this.folderExists.not, {
                     "%: Automatically compiling Faust plugins\n".format(this.name).postln;
                     this.install();
+                }, {
+                    "%: Not compiling Faust plugins. Seemingly it's already installed at %".format(this.name, this.compiledFilesFolder()).postln;
                 })
             });
 
-            autocompileAdded = true;
-
-        }
+        //     autocompileAdded = true;
+        //
+        // }
     }
 
 }
