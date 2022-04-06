@@ -1,0 +1,58 @@
+TITLE::Faust2SC
+SUMMARY::Compile Faust files to SuperCollider plugins
+CATEGORIES::Plugins>Faust
+RELATED::Classes/AbstractFaustPackage,Classes/Faust
+
+DESCRIPTION::
+This class is a simple interface for the compiler tool strong::faust2sc.py::
+which is used to generate SuperCollider plugins from Faust code. It can either
+compile singular files or a folder of files and can also automatically install
+it to your system. See LINK::Classes/AbstractFaustPackage:: for a simple way to
+automatically do this as part of your packaging.
+
+The strong::faust2sc.py:: tool is included in Faust version 2.40.0 and above,
+and so this will only work if you have that version or above installed.
+
+To check if your installation is compatible:
+
+CODE::
+// Check if your faust installation is supported:
+Faust.checkVersion("2.40.0");
+::
+
+CLASSMETHODS::
+METHOD::compileFile
+Compile a Faust file to a SuperCollider plugin. Currently by default this also
+generates a supernova version and simple help files and classes. The resulting
+files are installed in the outputDir directory.
+
+ARGUMENT::file
+A String or a PathName
+
+ARGUMENT::outputDir
+A String or a PathName
+
+METHOD::compileAllFilesInDir
+Compile a folder of Faust files.The resulting files are installed in the outputDir directory.
+
+ARGUMENT::inputDir
+A String or a PathName
+ARGUMENT::outputDir
+A String or a PathName
+
+METHOD::getCompilerCommand
+
+METHOD::compilerExists
+
+EXAMPLES::
+
+CODE::
+// Compile a faust file to a SuperCollider plugin and install it.
+Faust2SC.compileFile(
+		"mysupernicefaustfile.dsp",
+		outputDir: Platform.userExtensions +/+ "MySuperFaustPlugins"
+);
+
+// Recompile class library to enjoy this sweet new plugin you made
+Main.recompile();
+::

@@ -1,0 +1,51 @@
+TITLE::Faust
+SUMMARY::A simple interface for the Faust command
+CATEGORIES::Plugins>Faust
+RELATED::Classes/AbstractFaustPackage,Classes/Faust2SC
+
+DESCRIPTION::
+
+A simple interface for the Faust command.
+
+CLASSMETHODS::
+METHOD::flags
+Get the compiler flags used with the faust compiler.
+
+See LINK::https://faustdoc.grame.fr/manual/options/:: for more info.
+
+METHOD::flags_
+Set the compiler flags used with the faust compiler.
+
+METHOD::commandPathPrefix_
+
+METHOD::commandPathPrefix
+The compiler assumes that the strong::faust:: command is executable and able to
+be found by SuperCollider. If you want to prefix the command with a full path,
+this method may be used to set it.
+
+METHOD::supportedVersion
+Get the minimum supported version.
+
+METHOD::supportedVersion_
+
+METHOD::faustFileExtensions
+File extensions of faust files.
+
+METHOD::version
+Current version of your faust installation
+
+METHOD::checkVersion
+ARGUMENT::largerThanOrEqual
+
+METHOD::isFaustFile
+ARGUMENT::file
+
+METHOD::prAsPathName
+ARGUMENT::file
+
+EXAMPLES::
+
+CODE::
+// Check if your faust installation is supported:
+Faust.checkVersion("2.40.0");
+::

@@ -1,0 +1,11 @@
+(
+  name: "faust",
+  summary: "Convenience classes for working with the Faust programming language",
+  version: "0.001",
+  schelp: "Faust.schelp",
+  dependencies: ["Singleton"],
+  license: "GNU GPL v3.0",
+  copyright: "madskjeldgaard",
+  ext_dependency: nil,
+  url: "https://github.com/madskjeldgaard/faust.quark"
+)

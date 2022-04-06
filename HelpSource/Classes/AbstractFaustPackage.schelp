@@ -1,0 +1,103 @@
+TITLE::AbstractFaustPackage
+SUMMARY::An interface for creating a Faust plugin package.
+CATEGORIES::Plugins>Faust
+RELATED::Classes/Faust,Classes/Faust2SC
+
+DESCRIPTION::
+
+This class is an interface that is used to create LINK::Classes/Quarks:: that
+distribute Faust-based plugins. It is not used directly, but should be inherited
+by a class in your Quark. After doing so, it will allow the users of your Quark to easily install,
+compile and uninstall all the faust plugins included in your Quark. All you have
+to do is inherit this class.
+
+Here's how to do that in a subclass in your Quark. Change strong::KometFaustPackage:: to
+whatever name you want:
+
+code::
+KometFaustPackage : AbstractFaustPackage {}
+::
+
+When that's done, your users can install and compile or uninstall easily using
+your new subclass:
+
+code::
+// Compile and install plugins
+KometFaustPackage.install();
+
+// Uninstall
+KometFaustPackage.uninstall();
+::
+
+It is also possible to do this automatically, see below.
+
+note::
+Don't forget to add this Quark to your Quark's dependencies list
+::
+
+CLASSMETHODS::
+
+METHOD::faustFilesFolder
+Set the folder containing the faust files in your Quark relative to the root of
+your Quark.
+
+By default it is "faust", assuming that all Faust files are found in a folder at
+the root of your Quark called that.
+
+Overwrite this in a subclass if your files are not in this folder.
+
+Here's how to do that in your subclass. Change strong::KometFaustPackage:: to
+whatever in your package.
+
+CODE::
+KometFaustPackage : AbstractFaustPackage {
+	classvar <faustFilesFolder = "someOtherFolder";
+}
+::
+
+METHOD::thisPackage
+Get the Quark that this class belongs to. Used in subclasses to locate the
+package it is distributed with.
+
+METHOD::thisPackageName
+Name of this quark. See above.
+
+METHOD::compiledFilesFolder
+The folder to which the compiled SuperCollider plugins, classes and help files
+will be installed. Overwrite this in your subclass if you want something
+different.
+
+METHOD::folderExists
+Check if the output folder exists.
+
+METHOD::makeFolder
+Make the output folder
+
+METHOD::install
+Compile all Faust files in your package and install them.
+
+METHOD::uninstall
+Uninstall the Faust plugins associated with your package.
+
+METHOD::autoCompileAtStartup
+By calling this in the LINK::Classes/Class#*initClass:: method of your subclass,
+a LINK::Classes/StartUp:: action is added which when the class library has been
+compiled will check if the faust plugins associated with your package have
+already been installed, if not it will automatically install them.
+
+Here's how to do that in your subclass. Change strong::KometFaustPackage:: to
+whatever in your package.
+
+code::
+KometFaustPackage : AbstractFaustPackage{
+    *initClass{
+        this.autoCompileAtStartup()
+    }
+}
+::
+
+EXAMPLES::
+
+CODE::
+// See above
+::
