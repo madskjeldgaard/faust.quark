@@ -29,6 +29,16 @@ Faust : Singleton {
         ^this.faustFileExtensions.any{|ext| ext == fileName.extension }
     }
 
+    *parse{|faustFile|
+        var result = "%faust -i % -json > /dev/null".format(
+            commandPathPrefix,
+            faustFile,
+        ).unixCmdGetStdOut();
+        var dict = "%.json".format(faustFile).parseJSONFile();
+        File.delete("%.json");
+        ^dict
+    }
+
     // Make sure a file is a pathname object
     *prAsPathName{|file|
         ^case

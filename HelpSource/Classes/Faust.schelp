@@ -34,6 +34,11 @@ File extensions of faust files.
 METHOD::version
 Current version of your faust installation
 
+METHOD::parse
+ARGUMENT::faustFile
+Takes a faustfile as input, parses it as JSON and returns the result as a
+dictionary.
+
 METHOD::checkVersion
 ARGUMENT::largerThanOrEqual
 
