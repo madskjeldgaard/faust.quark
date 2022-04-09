@@ -3,7 +3,7 @@
 An interface for both the faust command and faust2sc.py command
 
 */
-Faust : Singleton {
+Faust {
     classvar <>flags = "-double -vec";
     classvar <>commandPathPrefix="";
     classvar <>supportedVersion="2.40.0";

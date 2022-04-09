@@ -3,7 +3,7 @@
   summary: "Convenience classes for working with the Faust programming language",
   version: "0.001",
   schelp: "Faust.schelp",
-  dependencies: ["Singleton"],
+  dependencies: [],
   license: "GNU GPL v3.0",
   copyright: "madskjeldgaard",
   ext_dependency: nil,
