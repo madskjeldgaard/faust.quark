@@ -19,7 +19,7 @@ AbstractFaustPackage {
     }
 
     *compiledFilesFolder{
-        ^Platform.userExtensionDir.asPathName +/+ (this.thisPackageName() ++ "FaustPlugins")
+        ^PathName(Platform.userExtensionDir) +/+ (this.thisPackageName() ++ "FaustPlugins")
     }
 
     *folderExists{
