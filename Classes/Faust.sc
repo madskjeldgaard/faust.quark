@@ -60,6 +60,8 @@ Faust2SC : Faust{
         file = this.prAsPathName(file);
         fileFolder = file.pathOnly;
 
+        "%: Compiling file %".format(this.name, file.fileName).postln;
+
         // FIXME: cd is necessary at the moment because the command spits out some junk and if we don't cd it is going to leave it all over your computer.
         cmd = "cd %; % % -s -o % %".format(
             fileFolder,
@@ -72,20 +74,38 @@ Faust2SC : Faust{
         result = cmd.systemCmd;
 
         if(result == 0, {
-            "%: Successfully compiled % to %".format(this.name, file, outputDir).postln
+            "%: Successfully compiled % to %".format(this.name, file.fileName, outputDir.folderName).postln
         }, {
-            "%: Could not compile %".format(this.name, file).warn
-        })
+            "%: Could not compile %".format(this.name, file.fileName).warn
+        });
+
+        ^result
     }
 
     // Compiles all faust files in directory
     *compileAllFilesInDir{|inputDir, outputDir|
+        var compiled = [];
+        var compiledOK;
         inputDir = this.prAsPathName(inputDir);
         inputDir.files.do{|file|
-            if(this.isFaustFile(file), {
-                this.compileFile(file, outputDir)
+            // Skip compilation if an error happened earlier
+            if(compiled.every{|isTrue| isTrue}, {
+                if(this.isFaustFile(file), {
+                    var result = this.compileFile(file, outputDir);
+
+                    compiled = compiled.add(result == 0);
+                })
             })
-        }
+        };
+
+        compiledOK = compiled.every{|didCompile| didCompile };
+
+        if(compiledOK, {
+            "%: Successfully compiled faust files in %".format(this.name, outputDir.folderName).postln;
+
+        }, {
+            "%: Failed compiling faust files in %".format(this.name, outputDir.folderName).error;
+        })
 
     }
 
