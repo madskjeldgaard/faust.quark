@@ -7,6 +7,7 @@ Faust {
     classvar <>flags = "-double -vec";
     classvar <>commandPathPrefix="";
     classvar <>supportedVersion="2.40.0";
+    classvar <>headerPath;
 
     *faustFileExtensions{
         ^["dsp"]
@@ -30,10 +31,10 @@ Faust {
     }
 
     *parse{|faustFile|
-        var result = "%faust -i % -json > /dev/null".format(
+        var result = "%faust -i \"%\" -json > /dev/null".format(
             commandPathPrefix,
             faustFile,
-        ).unixCmdGetStdOut();
+        ).postln.unixCmdGetStdOut();
         var dict = "%.json".format(faustFile).parseJSONFile();
         File.delete("%.json");
         ^dict
@@ -63,13 +64,17 @@ Faust2SC : Faust{
         "%: Compiling file %".format(this.name, file.fileName).postln;
 
         // FIXME: cd is necessary at the moment because the command spits out some junk and if we don't cd it is going to leave it all over your computer.
-        cmd = "cd %; % % -s -o % %".format(
+        cmd = "cd \"%\"; % \"%\" -s -o \"%\" %".format(
             fileFolder,
             this.getCompilerCommand(),
-            file.fullPath,
+            file.fileName,
             outputDir.fullPath,
             flags
         );
+
+        if(Faust.headerPath.notNil, {
+            cmd = cmd ++ " -p \"%\"".format(Faust.headerPath);
+        });
 
         result = cmd.systemCmd;
 
