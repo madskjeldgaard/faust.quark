@@ -13,11 +13,6 @@ Get the compiler flags used with the faust compiler.
 
 See LINK::https://faustdoc.grame.fr/manual/options/:: for more info.
 
-METHOD::flags_
-Set the compiler flags used with the faust compiler.
-
-METHOD::commandPathPrefix_
-
 METHOD::commandPathPrefix
 The compiler assumes that the strong::faust:: command is executable and able to
 be found by SuperCollider. If you want to prefix the command with a full path,
@@ -25,8 +20,6 @@ this method may be used to set it.
 
 METHOD::supportedVersion
 Get the minimum supported version.
-
-METHOD::supportedVersion_
 
 METHOD::faustFileExtensions
 File extensions of faust files.
