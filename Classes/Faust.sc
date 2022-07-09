@@ -31,9 +31,9 @@ Faust {
     }
 
     *parse{|faustFile|
-        var result = "%faust -i \"%\" -json > /dev/null".format(
+        var result = "%faust -i % -json > /dev/null".format(
             commandPathPrefix,
-            faustFile,
+            faustFile.quote(),
         ).postln.unixCmdGetStdOut();
         var dict = "%.json".format(faustFile).parseJSONFile();
         File.delete("%.json");
@@ -64,19 +64,19 @@ Faust2SC : Faust{
         "%: Compiling file %".format(this.name, file.fileName).postln;
 
         // FIXME: cd is necessary at the moment because the command spits out some junk and if we don't cd it is going to leave it all over your computer.
-        cmd = "cd \"%\"; % \"%\" -s -o \"%\" %".format(
-            fileFolder,
+        cmd = "cd %; % % -s -o % %".format(
+            fileFolder.quote(),
             this.getCompilerCommand(),
-            file.fileName,
-            outputDir.fullPath,
+            file.fullPath.quote(),
+            outputDir.fullPath.quote(),
             flags
-        );
+        ).postln;
 
         if(Faust.headerPath.notNil, {
-            cmd = cmd ++ " -p \"%\"".format(Faust.headerPath);
+            cmd = cmd ++ " -p %".format(Faust.headerPath.quote());
         });
 
-        result = cmd.systemCmd;
+        // result = cmd.systemCmd;
 
         if(result == 0, {
             "%: Successfully compiled % to %".format(this.name, file.fileName, outputDir.folderName).postln
