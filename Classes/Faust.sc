@@ -76,7 +76,7 @@ Faust2SC : Faust{
             cmd = cmd ++ " -p %".format(Faust.headerPath.quote());
         });
 
-        // result = cmd.systemCmd;
+        result = cmd.systemCmd;
 
         if(result == 0, {
             "%: Successfully compiled % to %".format(this.name, file.fileName, outputDir.folderName).postln
